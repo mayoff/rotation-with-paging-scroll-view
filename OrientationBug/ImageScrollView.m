@@ -7,10 +7,12 @@
 //
 
 #import "ImageScrollView.h"
+#import <tgmath.h>
 
 @implementation ImageScrollView {
     NSMutableArray *imageSubviews;
     CGSize priorSize;
+    CGFloat pageNumber;
     BOOL needsToSyncSubviewsWithImages : 1;
 }
 
@@ -35,6 +37,7 @@
     }
     needsToSyncSubviewsWithImages = NO;
     priorSize = self.bounds.size;
+    [self updatePageNumber];
 }
 
 #pragma mark - Implementation details
@@ -71,8 +74,10 @@
 - (UIImageView *)imageViewAtIndex:(NSUInteger)i {
     while (i >= imageSubviews.count) {
         UIView *view = [[UIImageView alloc] init];
+        view.contentMode = UIViewContentModeScaleAspectFit;
         view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:view];
+        [imageSubviews addObject:view];
     }
     return imageSubviews[i];
 }
@@ -89,10 +94,17 @@
         subview.frame = frame;
         frame.origin.x += frame.size.width;
     }
-    self.contentSize = frame.size;
+    self.contentSize = CGSizeMake(frame.origin.x, frame.size.height);
 }
 
 - (void)alignToNearestPage {
+    self.contentOffset = CGPointMake(pageNumber * self.bounds.size.width, 0);
+}
+
+- (void)updatePageNumber {
+    // Note that self.contentOffset == self.bounds.origin.
+    CGRect bounds = self.bounds;
+    pageNumber = fmin(round(bounds.origin.x / bounds.size.width), self.images.count - 1);
 }
 
 @end

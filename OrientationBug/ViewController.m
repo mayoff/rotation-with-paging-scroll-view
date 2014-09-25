@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ImageScrollView.h"
 #import <tgmath.h>
 
 @interface ViewController ()
@@ -125,7 +126,7 @@
     
 
     //Configuring scrollView
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.imageSegmentView.frame.size.width, self.imageSegmentView.frame.size.height-pageControl.frame.size.height)];
+    self.scrollView = [[ImageScrollView alloc] initWithFrame:CGRectMake(0, 0, self.imageSegmentView.frame.size.width, self.imageSegmentView.frame.size.height-pageControl.frame.size.height)];
     self.scrollView.backgroundColor = [UIColor clearColor];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.delegate = self;
@@ -134,32 +135,9 @@
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
     //Adding imageURLS to array
-    photos = [[NSArray alloc] initWithObjects:[UIImage imageNamed:@"createBootableUSBInstallDrive1"],[UIImage imageNamed:@"createBootableUSBInstallDrive2"],[UIImage imageNamed:@"createBootableUSBInstallDrive3"], nil];
-    
-    //Actual setup -> scrollView adding imageView as subview with all the images
-  
-    for (int i =0; i< photos.count; i++){
-        CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
-        frame.origin.y = 0;
-        frame.size = self.scrollView.frame.size;
-        
-        //imageView setup
-        imageView = [[UIImageView alloc]initWithFrame:frame];
-        imageView.backgroundColor = [UIColor clearColor];
-        imageView.clipsToBounds = YES;
-        imageView.userInteractionEnabled = YES;
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = YES;
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        //Setting images
-        [imageView setImage:[photos objectAtIndex:i]];
-        
-        [self.scrollView addSubview:imageView];
-    }
-    
+    photos = @[ [UIImage imageNamed:@"createBootableUSBInstallDrive1"], [UIImage imageNamed:@"createBootableUSBInstallDrive2"], [UIImage imageNamed:@"createBootableUSBInstallDrive3"]];
+    self.scrollView.images = photos;
+
     pageControl.numberOfPages = [photos count];
     
     [self.imageSegmentView addSubview:self.scrollView];
@@ -249,11 +227,6 @@
 }
 
 
--(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * photos.count, 1);
-}
-
 -(IBAction)changeSegment:(UISegmentedControl*)sender{
     
     switch (sender.selectedSegmentIndex) {
@@ -337,28 +310,6 @@
 
 -(BOOL)shouldAutorotate{
     return YES;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self setPageNumberPriorToRotation];
-}
-
-- (void)setPageNumberPriorToRotation {
-    CGRect bounds = self.scrollView.bounds;
-    static const int kNumberOfImages = 3;
-    pageNumberPriorToRotation = fmin(round(bounds.origin.x / bounds.size.width), kNumberOfImages - 1);
-}
-
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self updateScrollViewLayout];
-}
-
-- (void)updateScrollViewLayout {
-    CGRect bounds = self.scrollView.bounds;
-    bounds.origin.x = bounds.size.width * pageNumberPriorToRotation;
-    self.scrollView.bounds = bounds;
 }
 
 @end

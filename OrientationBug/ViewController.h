@@ -9,10 +9,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class ImageScrollView;
+
 @interface ViewController : UIViewController <UIScrollViewDelegate, UIGestureRecognizerDelegate,UIWebViewDelegate>
 
 {
-    UIScrollView *scrollView;
+    ImageScrollView *scrollView;
     UIImageView *imageView;
     
     //Bools
@@ -31,7 +33,7 @@
 @property (nonatomic, strong) UIView *imageSegmentView;
 @property (nonatomic, strong) UIView *shareSegmentView;
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) ImageScrollView *scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIWebView* webView;
 
