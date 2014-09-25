@@ -7,11 +7,14 @@
 //
 
 #import "ViewController.h"
+#import <tgmath.h>
 
 @interface ViewController ()
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    CGFloat pageNumberPriorToRotation;
+}
 
 @synthesize  imageView , scrollView, imageSegmentView, descriptionSegmentView, pageControl, segmentedControl, webView, imagesArray;
 
@@ -336,11 +339,26 @@
     return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self setPageNumberPriorToRotation];
+}
+
+- (void)setPageNumberPriorToRotation {
+    CGRect bounds = self.scrollView.bounds;
+    static const int kNumberOfImages = 3;
+    pageNumberPriorToRotation = fmin(round(bounds.origin.x / bounds.size.width), kNumberOfImages - 1);
+}
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
+    [self updateScrollViewLayout];
 }
 
+- (void)updateScrollViewLayout {
+    CGRect bounds = self.scrollView.bounds;
+    bounds.origin.x = bounds.size.width * pageNumberPriorToRotation;
+    self.scrollView.bounds = bounds;
+}
 
 @end
