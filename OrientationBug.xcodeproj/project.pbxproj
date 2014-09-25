@@ -17,6 +17,7 @@
 		291D2FB519D2346D00698A07 /* createBootableUSBInstallDrive1.png in Resources */ = {isa = PBXBuildFile; fileRef = 291D2FB219D2346D00698A07 /* createBootableUSBInstallDrive1.png */; };
 		291D2FB619D2346D00698A07 /* createBootableUSBInstallDrive2.png in Resources */ = {isa = PBXBuildFile; fileRef = 291D2FB319D2346D00698A07 /* createBootableUSBInstallDrive2.png */; };
 		291D2FB719D2346D00698A07 /* createBootableUSBInstallDrive3.png in Resources */ = {isa = PBXBuildFile; fileRef = 291D2FB419D2346D00698A07 /* createBootableUSBInstallDrive3.png */; };
+		319A5BEF19D478CA000D965E /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A5BEE19D478CA000D965E /* ImageScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		291D2FB219D2346D00698A07 /* createBootableUSBInstallDrive1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createBootableUSBInstallDrive1.png; sourceTree = "<group>"; };
 		291D2FB319D2346D00698A07 /* createBootableUSBInstallDrive2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createBootableUSBInstallDrive2.png; sourceTree = "<group>"; };
 		291D2FB419D2346D00698A07 /* createBootableUSBInstallDrive3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createBootableUSBInstallDrive3.png; sourceTree = "<group>"; };
+		319A5BED19D478CA000D965E /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
+		319A5BEE19D478CA000D965E /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 		291D2F5519D2310000698A07 /* OrientationBug */ = {
 			isa = PBXGroup;
 			children = (
+				319A5BED19D478CA000D965E /* ImageScrollView.h */,
+				319A5BEE19D478CA000D965E /* ImageScrollView.m */,
 				291D2F5A19D2310000698A07 /* AppDelegate.h */,
 				291D2F5B19D2310000698A07 /* AppDelegate.m */,
 				291D2F5D19D2310000698A07 /* ViewController.h */,
@@ -240,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				291D2F5F19D2310000698A07 /* ViewController.m in Sources */,
+				319A5BEF19D478CA000D965E /* ImageScrollView.m in Sources */,
 				291D2F5C19D2310000698A07 /* AppDelegate.m in Sources */,
 				291D2F5919D2310000698A07 /* main.m in Sources */,
 			);
